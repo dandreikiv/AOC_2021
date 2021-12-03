@@ -24,7 +24,6 @@ class Solution {
     func solve() -> Int {
         let lineLength = input[0].count 
         var counts: [Int] = Array(repeating: 0, count: lineLength)
-        print(input.count)
         for string in input {
             for (i, ch) in string.enumerated() {
                 if ch == "1" {
