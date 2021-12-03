@@ -22,21 +22,27 @@ class Solution {
     }
 
     func solve() -> Int {
-        var array:[[Character]] = []
+        var array: [[Character]] = []
+
         for string in input {
             array.append(string.map{$0})
         }
 
-        let oxygen = findOxygenRating(array)
-        let co2 = findCORating(array)
+        let oxygen = findRating(array) { (ones, zeros) in
+            ones.count >= zeros.count ? ones : zeros  
+        }
 
-        let oxygenRating = intFromCharacters(oxygen)
+        let co2 = findRating(array) { (ones, zeros) in
+            zeros.count <= ones.count ? zeros : ones  
+        }
+
+        let oxygenRating = intFromCharacters(oxygen) 
         let co2Rating = intFromCharacters(co2)
     
         return oxygenRating * co2Rating
     }
 
-    func findOxygenRating(_ data: [[Character]]) -> [Character] {
+    func findRating(_ data: [[Character]], modifier: ([[Character]], [[Character]]) -> [[Character]]) -> [Character] {
         let length = data[0].count
         var array = data
         var i = 0
@@ -50,41 +56,12 @@ class Solution {
                 } else {
                     zeroNumbers.append(number)
                 }
-                if oneNumbers.count >= zeroNumbers.count {
-                    array = oneNumbers
-                } else {
-                    array = zeroNumbers
-                }
             }
+            
+            array = modifier(oneNumbers, zeroNumbers)
+
             i = i + 1
         }
-        return array[0]
-    }
-
-    func findCORating(_ data: [[Character]]) -> [Character] {
-        let length = data[0].count
-        var array = data
-
-        var i = 0
-        while array.count > 1 && i < length {
-            var zeroNumbers: [[Character]] = []        
-            var oneNumbers: [[Character]] = []
-
-            for number in array {
-                if number[i] == "1" {
-                    oneNumbers.append(number)
-                } else {
-                    zeroNumbers.append(number)
-                }
-                if zeroNumbers.count <= oneNumbers.count  {
-                    array = zeroNumbers
-                } else {
-                    array = oneNumbers
-                }
-            }
-            i = i + 1
-        }
-        
         return array[0]
     }
 
