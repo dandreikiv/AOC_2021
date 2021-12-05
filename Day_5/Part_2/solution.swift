@@ -26,21 +26,13 @@ struct Line {
                 result.append(Point(x: x, y: start.y))
             } 
         } else {
-            var increment: [Int] = []
-            if start.x < finish.x && start.y < finish.y {
-                increment = [1, 1]
-            } else if start.x < finish.x && start.y > finish.y { 
-                increment = [1, -1]
-            } else if start.x > finish.x && start.y < finish.y {
-                increment = [-1, 1]
-            } else if start.x > finish.x && start.y > finish.y { 
-                increment = [-1, -1]
-            } 
-
+            let dx = start.x < finish.x ? 1 : -1
+            let dy = start.y < finish.y ? 1 : -1
+            
             var point = start
             result = [point]
             while point != finish {
-                point = Point(x: point.x + increment[0], y: point.y + increment[1])
+                point = Point(x: point.x + dx, y: point.y + dy)
                 result.append(point)
             }
         }
