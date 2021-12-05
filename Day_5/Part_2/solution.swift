@@ -5,10 +5,7 @@ struct Line {
     let finish: Point 
 
     init(string: String) {
-        let component = string
-            .replacingOccurrences(of: "->", with: "#")
-            .split(separator: "#")
-            .map(String.init)
+        let component = string.components(separatedBy: " -> ")
         start = Point(string: component[0])
         finish = Point(string: component[1])
     }
