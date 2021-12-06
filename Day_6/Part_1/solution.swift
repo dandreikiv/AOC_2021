@@ -20,7 +20,7 @@ class Solution {
 
     func solve() -> Int {
         var day = 1
-        while day <= 80 {
+        while day <= 256 {
             var index = 0
             let count = input.count
             while index < count {
@@ -32,6 +32,7 @@ class Solution {
                index += 1
             }
             day += 1
+            print(day, input.count)
         }
         return input.count
     }
